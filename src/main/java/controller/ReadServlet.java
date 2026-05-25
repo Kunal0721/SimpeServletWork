@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import entity.Student;
 import jakarta.servlet.ServletException;
@@ -11,33 +12,30 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.StudentDAO;
 
-@WebServlet("/abc")
-public class SimpleServlet extends HttpServlet {
+@WebServlet("/read")
+public class ReadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private StudentDAO dao = new StudentDAO();
 
-	public SimpleServlet() {
+	public ReadServlet() {
+		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		PrintWriter out = response.getWriter();
+		List<Student> list = dao.getAllStudents();
+		for (Student s : list) {
+			out.println("<h1> " + s.getId() + " " + s.getName() + " " + s.getAge() + " " + s.getCourse() + "</h1>");
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String name = request.getParameter("nm");
-		int age = Integer.parseInt(request.getParameter("age"));
-		String course = request.getParameter("course");
-
-		Student st = new Student(name, age, course);
-		StudentDAO dao = new StudentDAO();
-		int i = dao.insert(st);
-
 		PrintWriter out = response.getWriter();
-		if (i != 0) {
-			request.getRequestDispatcher("read").forward(request, response);
-		} else {
-			out.println("<h1> something went wrong </h1>");
+		List<Student> list = dao.getAllStudents();
+		for (Student s : list) {
+			out.println("<h1> " + s.getId() + " " + s.getName() + " " + s.getAge() + " " + s.getCourse() + "</h1>");
 		}
 
 	}

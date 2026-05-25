@@ -2,7 +2,10 @@ package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import entity.Student;
 
@@ -25,5 +28,24 @@ public class StudentDAO {
 		}
 
 		return i;
+	}
+
+	// read all students..
+	public List<Student> getAllStudents() {
+		List<Student> list = new LinkedList<>();
+
+		try {
+			Connection con = DBUtil.makeConnection();
+			PreparedStatement pst = con.prepareStatement("select * from student");
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(new Student(rs.getInt("id"), rs.getString("name"), rs.getInt("age"), rs.getString("course")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return list;
 	}
 }
