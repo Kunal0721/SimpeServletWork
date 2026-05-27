@@ -14,4 +14,20 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.xhtml</welcome-file>
 	</welcome-file-list>
+	<servlet>
+		<servlet-name>example</servlet-name>
+		<servlet-class>controller.ExampleConfig</servlet-class>
+		<init-param>
+			<param-name>work</param-name>
+			<param-value>password1234</param-value>
+		</init-param>
+		<init-param>
+			<param-name>work2</param-name>
+			<param-value>simple</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>example</servlet-name>
+		<url-pattern>/exampleConfig</url-pattern>
+	</servlet-mapping>
 </web-app>
