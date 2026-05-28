@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import entity.Student;
@@ -23,20 +22,14 @@ public class ReadServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
 		List<Student> list = dao.getAllStudents();
-		for (Student s : list) {
-			out.println("<h1> " + s.getId() + " " + s.getName() + " " + s.getAge() + " " + s.getCourse() + "</h1>");
-		}
+		request.setAttribute("List", list);
+		request.getRequestDispatcher("read.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
-		List<Student> list = dao.getAllStudents();
-		for (Student s : list) {
-			out.println("<h1> " + s.getId() + " " + s.getName() + " " + s.getAge() + " " + s.getCourse() + "</h1>");
-		}
+		doGet(request, response);
 
 	}
 
