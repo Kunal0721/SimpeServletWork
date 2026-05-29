@@ -48,4 +48,62 @@ public class StudentDAO {
 
 		return list;
 	}
+
+	// delete :
+	public int deleteById(int id) {
+		int i = 0;
+		try {
+			Connection con = DBUtil.makeConnection();
+			PreparedStatement pst = con.prepareStatement("delete from student where id = ?");
+			pst.setInt(1, id);
+			i = pst.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return i;
+	}
+
+	// get one student with there id :
+	public Student getOneStudent(int id) {
+		Student st = null;
+
+		try {
+			Connection con = DBUtil.makeConnection();
+			PreparedStatement pst = con.prepareStatement("select * from student where id = ?");
+			pst.setInt(1, id);
+
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				st = new Student(rs.getInt("id"), rs.getString("name"), rs.getInt("age"), rs.getString("course"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return st;
+	}
+
+	// update :
+	public int updateStudent(Student st) {
+		int i = 0;
+		try {
+			Connection con = DBUtil.makeConnection();
+			PreparedStatement pst = con.prepareStatement("update student set name=?, age=?, course=? where id=?");
+			pst.setString(1, st.getName());
+			pst.setInt(2, st.getAge());
+			pst.setString(3, st.getCourse());
+			pst.setInt(4, st.getId());
+
+			i = pst.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return i;
+	}
+
 }

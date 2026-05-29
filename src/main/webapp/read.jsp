@@ -13,9 +13,24 @@
 	rel="stylesheet"
 	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
 	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 <body>
 	<%@ include file="navbar.jsp"%>
+
+	<%
+	String msg = (String) request.getAttribute("msg");
+	if (msg != null) {
+	%>
+	<p class="text-center text-danger my-4">
+		<%=msg%>
+	</p>
+
+	<%
+	}
+	%>
+
 
 	<div class="container my-5">
 		<div class="row justify-content-center">
@@ -40,8 +55,11 @@
 							<td><%=s.getName()%></td>
 							<td><%=s.getAge()%></td>
 							<td><%=s.getCourse()%></td>
-							<td><a class="btn btn-warning">update</a> <a
-								class="btn btn-danger">delete</a></td>
+							<td><a class="btn btn-warning"
+								href="update?id=<%=s.getId()%>"><i class="bi bi-pencil-square"></i></a> <a
+								class="btn btn-danger"
+								onclick="return confirm('Are you sure you want to delete this : <%=s.getName()%> ')"
+								href="delete?id=<%=s.getId()%>"><i class="bi bi-trash3-fill"></i></a></td>
 						</tr>
 						<%
 						}

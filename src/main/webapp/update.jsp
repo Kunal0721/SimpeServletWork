@@ -1,3 +1,4 @@
+<%@page import="entity.Student"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,30 +15,34 @@
 <body>
 
 	<%@ include file="navbar.jsp"%>
+	<%
+	Student st = (Student) request.getAttribute("Student");
+	%>
 
 	<div class="container">
 		<div class="row justify-content-center align-items-center"
 			style="height: 90vh;">
 			<div class="col-5 shadow rounded-4 p-4">
-				<h1 class="text-center my-3">Student :</h1>
-				<form action="abc" method="post">
+				<h1 class="text-center my-3">Update Student :</h1>
+				<form action="update" method="post">
+					<input type="hidden" name="id" value="<%=st.getId()%>">
 					<div class="mb-3">
-						<input type="text" class="form-control" name="nm"
-							placeholder="Enter name">
+						<input type="text" class="form-control" name="name"
+							placeholder="Enter name" value="<%=st.getName()%>">
 
 					</div>
 					<div class="mb-3">
 
 						<input type="number" class="form-control" name="age"
-							placeholder="Enter age">
+							placeholder="Enter age" value="<%=st.getAge()%>">
 					</div>
 					<div class="mb-3">
 						<input type="text" class="form-control" name="course"
-							placeholder="Enter course">
+							placeholder="Enter course" value="<%=st.getCourse()%>">
 
 					</div>
 					<div class="d-grid">
-						<button type="submit" class="btn btn-primary">Submit</button>
+						<button type="submit" class="btn btn-danger">Update</button>
 					</div>
 				</form>
 			</div>
