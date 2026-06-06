@@ -106,4 +106,25 @@ public class StudentDAO {
 		return i;
 	}
 
+	// search ...
+	public List<Student> search(String name) {
+		List<Student> list = new LinkedList<>();
+
+		try {
+			Connection con = DBUtil.makeConnection();
+			PreparedStatement pst = con.prepareStatement("select * from student where name like ?");
+			pst.setString(1, "%" + name + "%");
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(new Student(rs.getInt("id"), rs.getString("name"), rs.getInt("age"), rs.getString("course")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return list;
+
+	}
+
 }
